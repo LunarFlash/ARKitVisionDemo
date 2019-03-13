@@ -115,4 +115,4 @@ func view(_ view: ARSKView, didAdd node: SKNode, for anchor: ARAnchor) {
 [View in Source](x-source-tag://UpdateARContent)
 
 [8]:https://developer.apple.com/documentation/arkit/arskview/2875733-hittest
-[9]:https://developer.apple.com/documentation/arkit/arskviewdelegate/2865588-view
+[9]:https://developer.apple.com/documentation/arkit/arskviewdelegate/2865588-view# ARKitVisionDemo
