@@ -19,27 +19,17 @@ class StableCameraDetector {
 
     var manager = CMMotionManager()
 
+    /// Start listening to device acceleration updates.
     func start() {
-        guard manager.isAccelerometerAvailable else {
-            print("Core Motion accelerometer is not available")
-            return }
-
-        //manager.accelerometerUpdateInterval = 0.01
-
-        manager.startAccelerometerUpdates(to: .main) { [weak self] (data, error) in
-            guard let data = data, error == nil else {
-                print("Error obtaining accelerometer updates.")
-                return
-            }
-
+        guard manager.isAccelerometerAvailable else { return }
+        manager.startAccelerometerUpdates(to: .main) { [weak self] (data: CMAccelerometerData?, error) in
+            guard let data = data, error == nil else { return }
             print("receiving accelerometer data:", data)
         }
-
-
     }
 
-
-
+    /// Stops listening to device acceleration updates.
+    func stop() { manager.stopAccelerometerUpdates() }
 
 }
 

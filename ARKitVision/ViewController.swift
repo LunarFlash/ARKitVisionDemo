@@ -38,7 +38,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
             self.restartSession()
         }
 
-        stableCameraDetector.start()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +48,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
         
         // Run the view's session
         sceneView.session.run(configuration)
+        stableCameraDetector.start()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,6 +56,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
         
         // Pause the view's session
         sceneView.session.pause()
+        stableCameraDetector.stop()
     }
     
     // MARK: - ARSessionDelegate
