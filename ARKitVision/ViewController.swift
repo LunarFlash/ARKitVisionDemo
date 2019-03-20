@@ -20,7 +20,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
     }()
     
     // MARK: - View controller lifecycle
-    
+
+    let stableCameraDetector = StableCameraDetector()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +37,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
         statusViewController.restartExperienceHandler = { [unowned self] in
             self.restartSession()
         }
+
+        stableCameraDetector.start()
     }
     
     override func viewWillAppear(_ animated: Bool) {
