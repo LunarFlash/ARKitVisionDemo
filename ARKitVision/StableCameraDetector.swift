@@ -15,16 +15,23 @@ protocol StableCameraDetectorDelegate {
 
 class StableCameraDetector {
 
+    static let queueName = "StableCameraDetectorQueue"
+    private let queue = OperationQueue()
+
     private var delegate: StableCameraDetectorDelegate?
+
+    var lastAccelerometerData: CMAccelerometerData?
+    
 
     var manager = CMMotionManager()
 
     /// Start listening to device acceleration updates.
     func start() {
+        queue.name = StableCameraDetector.queueName
         guard manager.isAccelerometerAvailable else { return }
-        manager.startAccelerometerUpdates(to: .main) { [weak self] (data: CMAccelerometerData?, error) in
+        manager.startAccelerometerUpdates(to: queue) { [weak self] (data: CMAccelerometerData?, error) in
             guard let data = data, error == nil else { return }
-            print("receiving accelerometer data:", data)
+            self?.lastAccelerometerData = data
         }
     }
 
