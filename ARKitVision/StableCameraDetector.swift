@@ -15,13 +15,20 @@ protocol StableCameraDetectorDelegate {
 
 class StableCameraDetector {
 
+    let threshold = (x: 0.1, y: 0.1, z: 0.1)
+
     static let queueName = "StableCameraDetectorQueue"
     private let queue = OperationQueue()
 
     private var delegate: StableCameraDetectorDelegate?
 
     var lastAccelerometerData: CMAccelerometerData?
-    
+    var doesPassThreshold: Bool {
+        guard let lastAccelerometerData = lastAccelerometerData else { return false }
+        return lastAccelerometerData.acceleration.x < abs(threshold.x)
+        && lastAccelerometerData.acceleration.y < abs(threshold.y)
+        && lastAccelerometerData.acceleration.z < abs(threshold.z)
+    }
 
     var manager = CMMotionManager()
 
@@ -31,7 +38,15 @@ class StableCameraDetector {
         guard manager.isAccelerometerAvailable else { return }
         manager.startAccelerometerUpdates(to: queue) { [weak self] (data: CMAccelerometerData?, error) in
             guard let data = data, error == nil else { return }
+            //print("acceleration:", data)
             self?.lastAccelerometerData = data
+            if self!.doesPassThreshold {
+                print(self?.lastAccelerometerData!)
+            }
+        }
+        manager.startDeviceMotionUpdates(to: .main) { (data, error) in
+            guard let data = data, error == nil else { return }
+            //print("motion:", data)
         }
     }
 
