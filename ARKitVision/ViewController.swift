@@ -37,7 +37,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
         statusViewController.restartExperienceHandler = { [unowned self] in
             self.restartSession()
         }
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

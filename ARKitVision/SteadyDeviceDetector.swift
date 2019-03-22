@@ -15,6 +15,9 @@ import CoreMotion
  */
 public class SteadyDeviceDetector {
 
+    /// Returns the singleton instance.
+    public static let shared = SteadyDeviceDetector()
+
     /// Threshold for variance between accelerometer reads stored in the pastAccelerometerReads property.
     public let varianceThreshold = (x: 0.02, y: 0.02, z: 0.02)
 
