@@ -1,9 +1,8 @@
 //
-//  StableCameraManager.swift
-//  ARKitVision
+//  SteadyCameraManager.swift
 //
 //  Created by Terry Wang on 3/19/19.
-//  Copyright © 2019 Accenture. All rights reserved.
+//  Copyright © 2019 Terry Wang. All rights reserved.
 //
 
 
