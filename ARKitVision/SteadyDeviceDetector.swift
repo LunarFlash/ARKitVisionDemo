@@ -1,5 +1,5 @@
 //
-//  SteadyCameraManager.swift
+//  SteadyDeviceDetector.swift
 //
 //  Created by Terry Wang on 3/19/19.
 //  Copyright © 2019 Terry Wang. All rights reserved.
