@@ -15,7 +15,7 @@ import CoreMotion
  */
 public class SteadyDeviceDetector {
 
-    /// Thresh hold for variance between accelerometer reads stored in the pastAccelerometerReads property.
+    /// Threshold for variance between accelerometer reads stored in the pastAccelerometerReads property.
     public let varianceThreshold = (x: 0.02, y: 0.02, z: 0.02)
 
     /// Operation queue to handle listening to accelerometer data.
