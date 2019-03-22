@@ -21,8 +21,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
     
     // MARK: - View controller lifecycle
 
-    let stableCameraDetector = SteadyDeviceDetector()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +45,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
         
         // Run the view's session
         sceneView.session.run(configuration)
-        stableCameraDetector.start()
+        SteadyDeviceDetector.shared.start()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,7 +53,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
         
         // Pause the view's session
         sceneView.session.pause()
-        stableCameraDetector.stop()
+        SteadyDeviceDetector.shared.stop()
     }
     
     // MARK: - ARSessionDelegate
@@ -71,6 +69,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
         
         // Retain the image buffer for Vision processing.
         self.currentBuffer = frame.capturedImage
+        if SteadyDeviceDetector.shared.isSteady {
+            print("device steady")
+        } else {
+            print("device not steady")
+        }
         classifyCurrentImage()
     }
     
