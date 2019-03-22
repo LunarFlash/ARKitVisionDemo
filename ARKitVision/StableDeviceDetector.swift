@@ -14,7 +14,7 @@ import CoreMotion
  - Remark: Use start(), and stop() to start and stop the CoreMotion manager and recieve device acceleration updates.
  Use isSteady to find out if the device is currently steady.
  */
-class SteadyDeviceDetector {
+public class SteadyDeviceDetector {
 
     /// Thresh hold for variance between accelerometer reads stored in the pastAccelerometerReads property.
     let varianceThreshold = (x: 0.02, y: 0.02, z: 0.02)
