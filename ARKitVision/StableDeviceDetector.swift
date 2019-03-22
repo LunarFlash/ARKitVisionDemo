@@ -10,7 +10,7 @@ import CoreMotion
 
 /**
  A class that detects whether the current device is steady or not.
- - Remark: Use start(), and stop() to start and stop the CoreMotion manager and recieve device acceleration updates.
+ - Remark: Use start(), and stop() to start and stop the CoreMotion manager and receive device acceleration updates.
  Use isSteady to find out if the device is currently steady.
  */
 public class SteadyDeviceDetector {
