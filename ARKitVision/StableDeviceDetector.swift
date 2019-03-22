@@ -28,7 +28,7 @@ public class SteadyDeviceDetector {
     /// Past 2 accelerometer reads of type CMAccelerometerData?
     public var pastAccelerometerReads: (current: CMAccelerometerData?, last: CMAccelerometerData?)
 
-    /// Calculates whether the device is currently stable.
+    /// Calculates whether the device is currently steady.
     public var isSteady: Bool {
         guard let current = pastAccelerometerReads.current, let last = pastAccelerometerReads.last
             else { return false }
