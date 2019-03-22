@@ -6,52 +6,61 @@
 //  Copyright © 2019 Accenture. All rights reserved.
 //
 
-import AVFoundation
+
 import CoreMotion
 
-protocol StableCameraDetectorDelegate {
-    func cameraIsStable()
-}
+/**
+ A class that detects whether the current device is steady or not.
+ - Remark: Use start(), and stop() to start and stop the CoreMotion manager and recieve device acceleration updates.
+ Use isSteady to find out if the device is currently steady.
+ */
+class SteadyDeviceDetector {
 
-class StableCameraDetector {
+    /// Thresh hold for variance between accelerometer reads stored in the pastAccelerometerReads property.
+    let varianceThreshold = (x: 0.02, y: 0.02, z: 0.02)
 
-    let threshold = (x: 0.1, y: 0.1, z: 0.1)
+    /// Operation queue to handle listening to accelerometer data.
+    private lazy var operationQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "SteadyDeviceDetectorOperationQueue"
+        return queue
+    }()
 
-    static let queueName = "StableCameraDetectorQueue"
-    private let queue = OperationQueue()
+    /// Past 2 accelerometer reads of type CMAccelerometerData?
+    var pastAccelerometerReads: (current: CMAccelerometerData?, last: CMAccelerometerData?)
 
-    private var delegate: StableCameraDetectorDelegate?
-
-    var lastAccelerometerData: CMAccelerometerData?
-    var doesPassThreshold: Bool {
-        guard let lastAccelerometerData = lastAccelerometerData else { return false }
-        return lastAccelerometerData.acceleration.x < abs(threshold.x)
-        && lastAccelerometerData.acceleration.y < abs(threshold.y)
-        && lastAccelerometerData.acceleration.z < abs(threshold.z)
+    /// Calculates whether the device is currently stable.
+    var isSteady: Bool {
+        guard let current = pastAccelerometerReads.current, let last = pastAccelerometerReads.last
+            else { return false }
+        return abs(current.acceleration.x - last.acceleration.x) < varianceThreshold.x &&
+        abs(current.acceleration.y - last.acceleration.y) < varianceThreshold.y &&
+        abs(current.acceleration.z - last.acceleration.z) < varianceThreshold.z
     }
 
-    var manager = CMMotionManager()
+    /// Core motion manager used to detect device motion
+    private var motion = CMMotionManager()
 
     /// Start listening to device acceleration updates.
     func start() {
-        queue.name = StableCameraDetector.queueName
-        guard manager.isAccelerometerAvailable else { return }
-        manager.startAccelerometerUpdates(to: queue) { [weak self] (data: CMAccelerometerData?, error) in
-            guard let data = data, error == nil else { return }
-            //print("acceleration:", data)
-            self?.lastAccelerometerData = data
-            if self!.doesPassThreshold {
-                print(self?.lastAccelerometerData!)
-            }
-        }
-        manager.startDeviceMotionUpdates(to: .main) { (data, error) in
-            guard let data = data, error == nil else { return }
-            //print("motion:", data)
+        guard motion.isAccelerometerAvailable else { return }
+        motion.accelerometerUpdateInterval = 1.0 / 10.0 // 10 Hz - updates 10 times per second.
+        motion.startAccelerometerUpdates(to: operationQueue) { [weak self] (data: CMAccelerometerData?, error) in
+            guard let data = data, let self = self, error == nil else { return }
+            self.enqueue(data)
         }
     }
 
-    /// Stops listening to device acceleration updates.
-    func stop() { manager.stopAccelerometerUpdates() }
+    /// Stop listening to device acceleration updates.
+    func stop() { motion.stopAccelerometerUpdates() }
 
+    /// Enqueues the newest CMAccelerometerData to pastAccelerometerReads.
+    /// - Parameter data: A CMAccelerometerData to enqueue
+    private func enqueue(_ data: CMAccelerometerData) {
+        pastAccelerometerReads.last = pastAccelerometerReads.current
+        pastAccelerometerReads.current = data
+    }
 }
+
+
 

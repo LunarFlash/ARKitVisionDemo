@@ -21,7 +21,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, ARSKViewDel
     
     // MARK: - View controller lifecycle
 
-    let stableCameraDetector = StableCameraDetector()
+    let stableCameraDetector = SteadyDeviceDetector()
 
     override func viewDidLoad() {
         super.viewDidLoad()
