@@ -17,7 +17,7 @@ import CoreMotion
 public class SteadyDeviceDetector {
 
     /// Thresh hold for variance between accelerometer reads stored in the pastAccelerometerReads property.
-    let varianceThreshold = (x: 0.02, y: 0.02, z: 0.02)
+    public let varianceThreshold = (x: 0.02, y: 0.02, z: 0.02)
 
     /// Operation queue to handle listening to accelerometer data.
     private lazy var operationQueue: OperationQueue = {
@@ -27,10 +27,10 @@ public class SteadyDeviceDetector {
     }()
 
     /// Past 2 accelerometer reads of type CMAccelerometerData?
-    var pastAccelerometerReads: (current: CMAccelerometerData?, last: CMAccelerometerData?)
+    public var pastAccelerometerReads: (current: CMAccelerometerData?, last: CMAccelerometerData?)
 
     /// Calculates whether the device is currently stable.
-    var isSteady: Bool {
+    public var isSteady: Bool {
         guard let current = pastAccelerometerReads.current, let last = pastAccelerometerReads.last
             else { return false }
         return abs(current.acceleration.x - last.acceleration.x) < varianceThreshold.x &&
@@ -41,8 +41,15 @@ public class SteadyDeviceDetector {
     /// Core motion manager used to detect device motion
     private var motion = CMMotionManager()
 
+    /// Enqueues the newest CMAccelerometerData to pastAccelerometerReads.
+    /// - Parameter data: A CMAccelerometerData to enqueue
+    private func enqueue(_ data: CMAccelerometerData) {
+        pastAccelerometerReads.last = pastAccelerometerReads.current
+        pastAccelerometerReads.current = data
+    }
+
     /// Start listening to device acceleration updates.
-    func start() {
+    public func start() {
         guard motion.isAccelerometerAvailable else { return }
         motion.accelerometerUpdateInterval = 1.0 / 10.0 // 10 Hz - updates 10 times per second.
         motion.startAccelerometerUpdates(to: operationQueue) { [weak self] (data: CMAccelerometerData?, error) in
@@ -52,14 +59,7 @@ public class SteadyDeviceDetector {
     }
 
     /// Stop listening to device acceleration updates.
-    func stop() { motion.stopAccelerometerUpdates() }
-
-    /// Enqueues the newest CMAccelerometerData to pastAccelerometerReads.
-    /// - Parameter data: A CMAccelerometerData to enqueue
-    private func enqueue(_ data: CMAccelerometerData) {
-        pastAccelerometerReads.last = pastAccelerometerReads.current
-        pastAccelerometerReads.current = data
-    }
+    public func stop() { motion.stopAccelerometerUpdates() }
 }
 
 
