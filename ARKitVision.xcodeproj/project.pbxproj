@@ -17,7 +17,7 @@
 		68A81B56200FE12E00A4ABCA /* LabelScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 68A81B55200FE12E00A4ABCA /* LabelScene.sks */; };
 		841E31001FC286F900F639ED /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E30FF1FC286F800F639ED /* StatusViewController.swift */; };
 		84E14DE61F943834006B5204 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E14DE31F943834006B5204 /* Main.storyboard */; };
-		9D0A84682242BCC90081BE80 /* StableDeviceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A84672242BCC90081BE80 /* StableDeviceDetector.swift */; };
+		9D0A84682242BCC90081BE80 /* SteadyDeviceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0A84672242BCC90081BE80 /* SteadyDeviceDetector.swift */; };
 		9D7BC0BB22398F0C009EACA8 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7BC0BA22398F0C009EACA8 /* logo.png */; };
 		9D7BC0BF22398FD0009EACA8 /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7BC0BC22398FD0009EACA8 /* iTunesArtwork@1x.png */; };
 		9D7BC0C022398FD0009EACA8 /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7BC0BD22398FD0009EACA8 /* iTunesArtwork@3x.png */; };
@@ -38,7 +38,7 @@
 		68A81B55200FE12E00A4ABCA /* LabelScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LabelScene.sks; sourceTree = "<group>"; };
 		841E30FF1FC286F800F639ED /* StatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		84E14DE31F943834006B5204 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		9D0A84672242BCC90081BE80 /* StableDeviceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StableDeviceDetector.swift; sourceTree = "<group>"; };
+		9D0A84672242BCC90081BE80 /* SteadyDeviceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteadyDeviceDetector.swift; sourceTree = "<group>"; };
 		9D7BC0BA22398F0C009EACA8 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		9D7BC0BC22398FD0009EACA8 /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@1x.png"; sourceTree = "<group>"; };
 		9D7BC0BD22398FD0009EACA8 /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 				11BEDD99201A8EBA00B93233 /* TemplateLabelNode.swift */,
 				841E31011FC287CA00F639ED /* Resources */,
 				841E30FE1FC286E800F639ED /* Support */,
-				9D0A84672242BCC90081BE80 /* StableDeviceDetector.swift */,
+				9D0A84672242BCC90081BE80 /* SteadyDeviceDetector.swift */,
 			);
 			path = ARKitVision;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 			files = (
 				68612C361F7B0746002209A3 /* ViewController.swift in Sources */,
 				11BEDD9A201A8EBA00B93233 /* TemplateLabelNode.swift in Sources */,
-				9D0A84682242BCC90081BE80 /* StableDeviceDetector.swift in Sources */,
+				9D0A84682242BCC90081BE80 /* SteadyDeviceDetector.swift in Sources */,
 				68612C471F7B108A002209A3 /* Inceptionv3.mlmodel in Sources */,
 				68A81B54200FDD8A00A4ABCA /* Utilities.swift in Sources */,
 				841E31001FC286F900F639ED /* StatusViewController.swift in Sources */,
